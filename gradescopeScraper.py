@@ -1,5 +1,4 @@
 import csv
-import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 import numpy as np
@@ -79,7 +78,7 @@ def calculateStats(submissionDict, efficiencyDict):
     
     arr = np.array(totalList)
     mean = round(arr.mean(), 4)
-    stdev = round(np.std(totalList), 4)
+    stdev = round(np.std(arr), 4)
     return tas, mean, stdev
 
 def writeToCSV(tas, mean, stdev, newFile):
@@ -94,6 +93,7 @@ def writeToCSV(tas, mean, stdev, newFile):
         else:
             onlineList.append([formattedName, percent])
     campusList.sort()
+    onlineList.sort()
 
     with open(newFile, "w") as fout:
         writer = csv.writer(fout)
@@ -114,6 +114,8 @@ def main(semester, homework):
                                       os.path.join(semester, homework, "onlineEfficiency.html"))
     tas, mean, stDev = calculateStats(submissionDict, efficiencyDict)
     writeToCSV(tas, mean, stDev, "output.csv")
+    print(mean)
+    print(stDev)
 
     
 if __name__ == "__main__":
