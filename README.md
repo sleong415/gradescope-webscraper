@@ -4,7 +4,7 @@ This script webscrapes Gradescope! As a Senior Teaching Assistant for CS1332 (Da
 ## File Structure
 In order for the script to run successfully, your file structure should be organzied as follows:<br>
 <img width="276" alt="Screenshot 2024-04-18 at 1 31 09 PM" src="https://github.com/emilyjwu/gradescope-webscraper/assets/108899560/c4f5e69c-236d-4b84-8e73-6626006ed181"><br>
-The script is in the same root directory as all semesters (ex: `fall2023`, `spring2024`). A subdirectory for each homework is created for each semester (ex: `fall2023/hw1`).
+The script is in the same root directory as all semesters (ex: `fall2023`, `spring2024`). A subdirectory for each homework is created for each semester (ex: `/fall2023/hw1`).
 
 # Running the script
 1. Clone the repository <br>
