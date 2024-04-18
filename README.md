@@ -2,31 +2,15 @@
 This script webscrapes Gradescope! As a Senior Teaching Assistant for CS1332 (Data Structures & Algorithms) @ Georgia Tech, I wrote this to automate the quality assurance process for homework grading.
 
 ## File Structure
-In order for the script to run successfully, your file structure should be organzied as follows: <br>
-├── QA <br>
-│   ├── gradescopeScraper.py <br>
-│   ├── examGrading.py <br>
-│   ├── fall2023 <br>
-│   └── spring2024 <br>
-│       ├── hw1 <br>
-│       │   ├── campusEfficiency.html <br>
-│       │   ├── campusSubmissions.html <br>
-│       │   ├── onlineEfficiency.html <br>
-│       │   └── onlineSubmissions.html <br>
-│       ├── hw2 <br>
-│       ├── hw3 <br>
-│       ├── hw4 <br>
-│       ├── hw5 <br>
-│       ├── hw6 <br>
-│       ├── hw7 <br>
-│       ├── hw8 <br>
-│       ├── hw9 <br>
-│       └── hw10 <br>
+In order for the script to run successfully, your file structure should be organzied as follows:<br>
+<img width="276" alt="Screenshot 2024-04-18 at 1 31 09 PM" src="https://github.com/emilyjwu/gradescope-webscraper/assets/108899560/c4f5e69c-236d-4b84-8e73-6626006ed181"><br>
 The script is in the same root directory as all semesters (ex: `fall2023`, `spring2024`). A subdirectory for each homework is created for each semester (ex: `fall2023/hw1`).
 
 # Running the script
 1. Clone the repository <br>
-`git clone https://github.com/emilyjwu/gradescope-webscraper.git`
+```
+git clone https://github.com/emilyjwu/gradescope-webscraper.git
+```
 2. Navigate to your root directory. Create a directory for the current semester, and a subdirectory for the current homework.
 3. Create 4 empty HTML files in `semester/homeworkNumber`:
    - campusEfficiency.html <br>
@@ -57,6 +41,8 @@ The script is in the same root directory as all semesters (ex: `fall2023`, `spri
       main("spring2024", "hw8")
   ```
 9. Run the script by calling  <br>
-  `python gradescopeWebscraper.py`
+```
+python gradescopeWebscraper.py
+```
 10. View the results in `output.csv`
 
