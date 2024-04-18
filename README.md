@@ -23,8 +23,9 @@ git clone https://github.com/emilyjwu/gradescope-webscraper.git
      - You should see a list of all students and the TA who graded them
    - Click on the 3 dots on the top right-hand corner of your browser
    - Click More Tools -> Developer Tools -> Inspect Element
-   - Click on the div container for the page
-     - `<div class="l-content">`
+   - Hover over the page until you find the submission container. Multiple tags work, but the most specific one is
+     - `<table class="table dataTable no-footer" id="question_submissions">`
+
    - Right click on the HTML element, and click Copy -> Copy Element
    - Paste the HTML code into `campusSubmissions.html`
 6. Fill out `campusEfficiency.html`
@@ -32,7 +33,7 @@ git clone https://github.com/emilyjwu/gradescope-webscraper.git
    - Click on any homework submission
    - Click on the magnifying glass next to "[-5] Efficiency 1"
      - You should see a list of all TAs who applied this deduction
-   - Follow the steps above to get the div container
+   - Follow the steps above to get the HTML code
    - Paste the HTML code into `campusEfficiencies.html`
 7. Repeat steps (5-6) for the online section
 8. In the `gradescopeWebscraper.py` file, edit the block of code at the bottom <br>
