@@ -17,7 +17,7 @@ git clone https://github.com/emilyjwu/gradescope-webscraper.git
    - campusSubmissions.html <br>
    - onlineEfficiency.html <br>
    - onlineSubmissions.html <br>
-5. Fill `campusSubmissions.html`
+5. Fill out `campusSubmissions.html`
    - Find the homework assignment on Gradescope
    - On the "Grade Submissions" tab, click on the submissions button next to "Feedback & Manual Grading"
      - You should see a list of all students and the TA who graded them
@@ -27,7 +27,7 @@ git clone https://github.com/emilyjwu/gradescope-webscraper.git
      - `<div class="l-content">`
    - Right click on the HTML element, and click Copy -> Copy Element
    - Paste the HTML code into `campusSubmissions.html`
-6. Fill out campusEfficiency.html
+6. Fill out `campusEfficiency.html`
    - Exit out of the inspect element pop-up
    - Click on any homework submission
    - Click on the magnifying glass next to "[-5] Efficiency 1"
