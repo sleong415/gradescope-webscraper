@@ -1,4 +1,4 @@
-# Gradescope Websraper
+# Gradescope Webscraper
 This script webscrapes Gradescope! As a Senior Teaching Assistant for CS1332 (Data Structures & Algorithms) @ Georgia Tech, I wrote this to automate the quality assurance process for homework grading.
 
 ## File Structure
