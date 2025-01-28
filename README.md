@@ -1,5 +1,5 @@
 # Gradescope Webscraper
-This script webscrapes Gradescope! As a Senior Teaching Assistant for CS1332 (Data Structures & Algorithms) @ Georgia Tech, I updated this for the quality assurance process for homework grading. The adjusments made to the script reflect changes in the course and the grading process of TAs. 
+This script webscrapes Gradescope! As a Senior Teaching Assistant for CS1332 (Data Structures & Algorithms) @ Georgia Tech, I updated this for the quality assurance process for homework grading. The adjustments made to the script reflect changes in the course and the grading process of TAs. 
 
 ## File Structure
 In order for the script to run successfully, your file structure should be organzied as follows:<br>
@@ -15,6 +15,8 @@ root/
 ├── README.md
 ```
 The script is in the same root directory as all semesters (ex: `fall2023`, `spring2025`). A submission file is created for each homework (ex: `/fall2023/hw1.html`).
+
+The following section will set up this file structure.
 
 # Running the script
 1. Clone the repository <br>
@@ -45,7 +47,7 @@ https://github.com/sleong415/gradescope-webscraper.git
 7. Populate `excludedTAs.txt` with names of TAs that should be excluded from the script
       - Name should be the exact name from Gradescope
       - Each name should be on a newline
-      - For example, I exclude the Homework Senior TA from all calculations. They often give large number of points (+25) for deadline extensions which incorrectly skews the numbers.
+      - For example, I exclude the Homework Senior TA from all calculations. They often give large number of points (+25) for deadline extensions which would incorrectly skew the statistics.
 8. Run the script by calling  <br>
 ```
 python gradescopeWebscraper.py
