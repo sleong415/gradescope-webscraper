@@ -4,77 +4,56 @@ from pprint import pprint
 import numpy as np
 import os
 
+def parseExcludedTAs(file):
+    excludedTAs = []
 
-def countSubmissions(campusFile, onlineFile):
-    # Process campus/hybrid submissions
-    with open(campusFile) as infile:
+    with open(file, "r") as file:
+        for line in file:
+            name = line.strip()
+            excludedTAs.append(name)
+
+    print("excluded TAs:", excludedTAs)
+    return excludedTAs
+
+def countSubmissions(file):
+    # Process submissions
+    with open(file) as infile:
         soup = BeautifulSoup(infile, "html.parser")
 
     rows = [row for row in soup.find_all("tr")]
-    # tas = {name: {count: 0, section: "O"}}
+    # tas = {name: {count: 0, points: 0}}
     tas = {} 
     for row in rows:
         items = [item.text for item in row.find_all("td")]
         if len(items) > 2 and items[2]:
             name = items[2]
-            tas[name] = tas.get(name, {"count": 0, "section": "C"})
+            points = items[4]
+            tas[name] = tas.get(name, {"count": 0, "points": 0.0})
             tas[name]["count"] += 1
-    
-    # Process online submissions
-    with open(onlineFile) as infile:
-        soup = BeautifulSoup(infile, "html.parser")
 
-    rows = [row for row in soup.find_all("tr")]
-    for row in rows:
-        items = [item.text for item in row.find_all("td")]
-        if len(items) > 2 and items[2]:
-            name = items[2]
-            tas[name] = tas.get(name, {"count": 0, "section": "O"})
-            tas[name]["count"] += 1
+            if len(points) == 0:
+                points = 0
+
+            tas[name]["points"] += float(points)
+    
+    excludedTAs = parseExcludedTAs("./excludedTAs.txt")
+    for ta in excludedTAs:
+        if ta in tas:
+            del tas[ta]
+
     return tas
 
-def countEfficiencies(campusFile, onlineFile):
-    # Process campus/hybrid submissions
-    with open(campusFile) as infile:
-        soup = BeautifulSoup(infile, "html.parser")
-
-    rows = [row for row in soup.find_all("tr")]
-    # tas = {name: {count: 0, section: "O"}}
-    tas = {} 
-    for row in rows:
-        items = [item.text for item in row.find_all("td")]
-        if len(items) > 3 and items[3]:
-            name = items[3]
-            tas[name] = tas.get(name, {"count": 0, "section": "C"})
-            tas[name]["count"] += 1
-    
-    # Process online submissions
-    with open(onlineFile) as infile:
-        soup = BeautifulSoup(infile, "html.parser")
-
-    rows = [row for row in soup.find_all("tr")]
-    for row in rows:
-        items = [item.text for item in row.find_all("td")]
-        if len(items) > 3 and items[3]:
-            name = items[3]
-            tas[name] = tas.get(name, {"count": 0, "section": "O"})
-            tas[name]["count"] += 1
-    return tas
-
-def calculateStats(submissionDict, efficiencyDict):
-     # tas = {name: {percent: 0, section: "O"}}
+def calculateStats(submissionDict):
+     # tas = {name: {percent: 0}}
     tas = {}
     totalList = []
     for name in submissionDict:
         numGraded = submissionDict[name]["count"]
-        if name in efficiencyDict.keys():
-            numEfficient = efficiencyDict[name]["count"]
-        else:
-            numEfficient = 0
-        percent = round(numEfficient / numGraded, 4)
-        section = submissionDict[name]["section"]
-        tas[name] = {"percent": percent, "section": section}
-        totalList.append(percent)
+        points = submissionDict[name]["points"]
+
+        average = round(points / numGraded, 4)
+        tas[name] = {"avg_points": average}
+        totalList.append(average)
     
     arr = np.array(totalList)
     mean = round(arr.mean(), 4)
@@ -82,24 +61,17 @@ def calculateStats(submissionDict, efficiencyDict):
     return tas, mean, stdev
 
 def writeToCSV(tas, mean, stdev, newFile):
-    campusList = []
-    onlineList = []
+    taList = []
 
     for name in tas:
         formattedName = formatName(name)
-        percent = tas[name]["percent"]
-        if tas[name]["section"] == "C":
-            campusList.append([formattedName, percent])
-        else:
-            onlineList.append([formattedName, percent])
-    campusList.sort()
-    onlineList.sort()
+        avg_points = tas[name]["avg_points"]
+        taList.append([formattedName, avg_points])
+    taList.sort()
 
-    with open(newFile, "w") as fout:
+    with open(newFile, "w", newline='') as fout:
         writer = csv.writer(fout)
-        writer.writerows(campusList)
-        writer.writerow([])
-        writer.writerows(onlineList)
+        writer.writerows(taList)
 
 def formatName(name):
     if "," in name:
@@ -108,18 +80,14 @@ def formatName(name):
     return name
 
 def main(semester, homework):
-    submissionDict = countSubmissions(os.path.join(semester, homework, "campusSubmissions.html"),
-                                      os.path.join(semester, homework, "onlineSubmissions.html"))
-    efficiencyDict = countEfficiencies(os.path.join(semester, homework, "campusEfficiency.html"),
-                                      os.path.join(semester, homework, "onlineEfficiency.html"))
-    tas, mean, stDev = calculateStats(submissionDict, efficiencyDict)
+    submissionDict = countSubmissions(os.path.join(semester, homework, "submissions.html"))
+    tas, mean, stDev = calculateStats(submissionDict)
     writeToCSV(tas, mean, stDev, "output.csv")
-    print(mean)
-    print(stDev)
-
+    print("mean:", mean)
+    print("st dev:", stDev)
     
 if __name__ == "__main__":
-    main("spring2024", "hw5")
+    main("spring2025", "hw1")
     
     
    
