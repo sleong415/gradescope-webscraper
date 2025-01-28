@@ -4,6 +4,7 @@ from pprint import pprint
 import numpy as np
 import os
 
+
 def parseExcludedTAs(file):
     excludedTAs = []
 
@@ -80,7 +81,7 @@ def formatName(name):
     return name
 
 def main(semester, homework):
-    submissionDict = countSubmissions(os.path.join(semester, homework, "submissions.html"))
+    submissionDict = countSubmissions(os.path.join(semester, (homework + ".html")))
     tas, mean, stDev = calculateStats(submissionDict)
     writeToCSV(tas, mean, stDev, "output.csv")
     print("mean:", mean)
